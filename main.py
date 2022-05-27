@@ -1,4 +1,4 @@
-import numpy
+import numpy as np
 
 str_eng_start = ord('A')
 str_kr_start = ord('가')
@@ -6,8 +6,19 @@ str_kr_start = ord('가')
 def generate_matrix(n=2):
     assert 0 <= n <= 3
     while True:
-        matrix = numpy.random.randint(0, 100, size=(n, n))
-        print(numpy.linalg.det(matrix))
+        matrix = np.random.randint(0, 100, size=(n, n))
+        det = determinant(n, matrix)
+        if det:
+            print('='*10, '생성된 key matrix', '='*10)
+            print(matrix)
+            break
+
+def determinant(n: int,
+                matrix: np.ndarray):
+    if n == 2:
+        return matrix[0,0] * matrix[1,1] - matrix[0,1] * matrix[1,0]
+    elif n == 3:
+        return (matrix[0,0] * matrix[1,1] * matrix[2,2] + matrix[0,1] * matrix[1,2] * matrix[2,0] + matrix[0,2] * matrix[1,0] * matrix[2,1]) - (matrix[0,2] * matrix[1,1] * matrix[2,0] + matrix[0,0] * matrix[1,2] * matrix[2,1] + matrix[0,1] * matrix[1,0] * matrix[2,2])
 
 if __name__ == '__main__':
     while True:
