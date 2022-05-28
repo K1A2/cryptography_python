@@ -8,7 +8,7 @@ np.set_printoptions(threshold=5)
 
 def generate_matrix(n: int,
                     str_range: int) -> np.ndarray:
-    assert 0 <= n <= 3
+    assert 2 <= n <= 3
     while True:
         matrix = np.random.randint(0, 500, size=(n, n))
         det = determinant(n, matrix)
