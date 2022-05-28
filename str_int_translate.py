@@ -1,6 +1,6 @@
 import pickle
 
-strs = [' ']
+strs = []
 
 str_eng_c_start = ord('A')
 str_eng_c_end = ord('Z')
@@ -26,6 +26,8 @@ str_num_start = ord('0')
 str_num_end = ord('9')
 for i in range(str_num_start, str_num_end + 1):
     strs.append(chr(i))
+
+strs.append(' ')
 
 str_to_int = dict()
 int_to_str = dict()
