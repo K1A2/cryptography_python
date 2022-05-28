@@ -67,7 +67,7 @@ def divide_str(target: np.ndarray,
 def modular_multi_inv(d: int,
                       m: int) -> Optional[int]:
     if d > m:
-        d = d % m
+        d %= m
     for i in range(1, m):
         if (d % m) * (i % m) % m == 1:
             return i
@@ -100,14 +100,14 @@ def adjoint(matrix: np.ndarray,
     for x in range(k):
         for y in range(k):
             det = np.delete(np.delete(matrix.copy(), x, 0), y, 1)
-            adj_matrix[x, y] = (1 if (x + y) % 2 else -1) * determinant(k - 1, det)
+            adj_matrix[x, y] = (-1 if (x + y) % 2 else 1) * determinant(k - 1, det)
     return adj_matrix.T
 
 
-def inverse_key_matrix(key: np.ndarray,
+def inverse_key_matrix(key_matrix: np.ndarray,
                        k: int,
                        str_range: int) -> np.ndarray:
-    return modular_multi_inv(determinant(k, key), str_range) * adjoint(key, k) % str_range
+    return modular_multi_inv(determinant(k, key_matrix), str_range) * adjoint(key_matrix, k) % str_range
 
 
 def load_translater() -> Tuple[dict, dict]:

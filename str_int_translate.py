@@ -30,8 +30,8 @@ for i in range(str_num_start, str_num_end + 1):
 str_to_int = dict()
 int_to_str = dict()
 for idx, s in enumerate(strs):
-    str_to_int[s] = idx
-    int_to_str[idx] = s
+    str_to_int[s] = (idx + 1) % len(strs)
+    int_to_str[(idx + 1) % len(strs)] = s
 
 with open('str_to_int.pickle', 'wb') as f:
     pickle.dump(str_to_int, f, pickle.HIGHEST_PROTOCOL)
