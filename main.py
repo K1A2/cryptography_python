@@ -6,6 +6,14 @@ import re
 np.set_printoptions(threshold=5)
 
 
+def load_translater() -> Tuple[dict, dict]:
+    with open('str_to_int.pickle', 'rb') as f:
+        str_to_int = pickle.load(f)
+    with open('int_to_str.pickle', 'rb') as f:
+        int_to_str = pickle.load(f)
+    return str_to_int, int_to_str
+
+
 def generate_matrix(n: int,
                     str_range: int) -> np.ndarray:
     assert 2 <= n <= 3
@@ -31,6 +39,16 @@ def determinant(n: int,
                   + matrix[0, 1] * matrix[1, 0] * matrix[2, 2])
     else:
         return matrix[0,0]
+
+
+def modular_multi_inv(d: int,
+                      m: int) -> Optional[int]:
+    if d > m:
+        d %= m
+    for i in range(1, m):
+        if (d % m) * (i % m) % m == 1:
+            return i
+    return None
 
 
 def input_str() -> str:
@@ -84,16 +102,6 @@ def divide_str(target: np.ndarray,
     return res
 
 
-def modular_multi_inv(d: int,
-                      m: int) -> Optional[int]:
-    if d > m:
-        d %= m
-    for i in range(1, m):
-        if (d % m) * (i % m) % m == 1:
-            return i
-    return None
-
-
 def encrypto_hill(plaintext_matrix: np.ndarray,
                 key_matrix: np.ndarray,
                 str_range: int) -> np.ndarray:
@@ -133,14 +141,6 @@ def inverse_key_matrix(key_matrix: np.ndarray,
                        k: int,
                        str_range: int) -> np.ndarray:
     return modular_multi_inv(determinant(k, key_matrix), str_range) * adjoint(key_matrix, k) % str_range
-
-
-def load_translater() -> Tuple[dict, dict]:
-    with open('str_to_int.pickle', 'rb') as f:
-        str_to_int = pickle.load(f)
-    with open('int_to_str.pickle', 'rb') as f:
-        int_to_str = pickle.load(f)
-    return str_to_int, int_to_str
 
 
 if __name__ == '__main__':
