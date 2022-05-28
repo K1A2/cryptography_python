@@ -5,5 +5,7 @@
 
 ## 실행 방법
 ```shell
+git clone https://github.com/K1A2/cryptography_python/edit/master/readme.md
+cd cryptography_python
 python main.py
 ```
